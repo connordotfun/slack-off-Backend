@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+
 	"slack-off-Backend/db"
 	"slack-off-Backend/endpoints"
 
@@ -25,7 +26,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	serv := endpoints.NewEndpoints(db.NewDB())
+	database := db.NewDB()
+	serv := endpoints.NewEndpoints(database)
 
 	http.HandleFunc("/new_pairing", serv.NewPairing)
 	http.HandleFunc("/submit_winner", serv.SubmitWinner)
