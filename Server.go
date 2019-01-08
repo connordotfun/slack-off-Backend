@@ -26,14 +26,10 @@ type webServer struct {
 }
 
 func (serv *webServer) getMessageCount() {
-	// rows, _ := serv.db.Query("SELECT COUNT(*) as count FROM table_name")
-	// var count int
-	// for rows.Next() {
-	// 	rows.Scan(&count)
-	// }
-	// serv.messageCount = count
-
-	serv.messageCount = 4
+	rows, _ := serv.db.Query("SELECT COUNT(*) FROM messages")
+	var count int
+	rows.Scan(&count)
+	serv.messageCount = count
 }
 
 func (serv *webServer) newPairing(w http.ResponseWriter, r *http.Request) {
