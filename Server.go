@@ -154,8 +154,21 @@ func (serv *webServer) updateRating(id string, newRating float64) {
 	}
 }
 
+func getPort() (string, error) {
+	port := os.Getenv("PORT")
+	if port == "" {
+		return "", fmt.Errorf("$PORT not set")
+	}
+	return ":" + port, nil
+}
+
 func main() {
 	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	port, err := getPort()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -169,7 +182,7 @@ func main() {
 	http.HandleFunc("/new_pairing", serv.newPairing)
 	http.HandleFunc("/submit_winner", serv.submitWinner)
 
-	err = http.ListenAndServe(":9875", nil)
+	err = http.ListenAndServe(port, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
