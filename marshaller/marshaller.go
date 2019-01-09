@@ -3,7 +3,7 @@ package marshaller
 import (
 	"encoding/json"
 
-	"github.com/connordotfun/slack-off-Backend/message"
+	"slack-off-Backend/message"
 )
 
 // ToJSON marshals to JSON

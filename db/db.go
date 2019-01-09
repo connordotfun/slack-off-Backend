@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/connordotfun/slack-off-Backend/message"
+	"slack-off-Backend/message"
 )
 
 // DB is an abstraction of the database connection
@@ -67,7 +67,7 @@ func (db *DB) getRandomMessage() *message.Message {
 	case sql.ErrNoRows:
 		fmt.Println("No rows were returned!")
 	case nil:
-		fmt.Println(channel, id, created, author, text)
+		fmt.Println(channel, id, author, text, file)
 	default:
 		panic(err)
 	}
