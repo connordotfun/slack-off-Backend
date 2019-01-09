@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"slack-off-Backend/db"
-	"slack-off-Backend/elo"
-	"slack-off-Backend/marshaller"
+	"github.com/connordotfun/slack-off-Backend/db"
+	"github.com/connordotfun/slack-off-Backend/elo"
+	"github.com/connordotfun/slack-off-Backend/marshaller"
 )
 
 // Endpoints houses the endpoints

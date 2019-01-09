@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"slack-off-Backend/message"
+	"github.com/connordotfun/slack-off-Backend/message"
 )
 
 // DB is an abstraction of the database connection
