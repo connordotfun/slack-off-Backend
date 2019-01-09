@@ -56,14 +56,14 @@ func (db DB) NewPairing() [2]message.Message {
 func (db *DB) getRandomMessage() *message.Message {
 	var channel string
 	var id string
-	var created int
 	var author string
 	var text string
+	var file string
 
-	command := `SELECT channel, id, created, author, text FROM messages OFFSET floor(random()*$1) LIMIT 1;`
+	command := `SELECT id, channel, author, text, file FROM messages OFFSET floor(random()*$1) LIMIT 1;`
 	row := db.sqldb.QueryRow(command, db.messageCount)
 
-	switch err := row.Scan(&channel, &id, &created, &author, &text); err {
+	switch err := row.Scan(&id, &channel, &author, &text, &file); err {
 	case sql.ErrNoRows:
 		fmt.Println("No rows were returned!")
 	case nil:
@@ -74,10 +74,10 @@ func (db *DB) getRandomMessage() *message.Message {
 
 	return &message.Message{
 		Channel: channel,
-		ID:      id,
-		Created: created,
 		Author:  author,
+		ID:      id,
 		Text:    text,
+		File:    file,
 	}
 }
 
@@ -98,7 +98,7 @@ func (db *DB) GetCurrentRating(id string) float64 {
 	return rating
 }
 
-// UpdatesRating updates the rating associated with the ID
+// UpdateRating updates the rating associated with the ID
 func (db *DB) UpdateRating(id string, newRating float64) {
 	command := `UPDATE messages SET rating = $2 WHERE id = $1;`
 	_, err := db.sqldb.Exec(command, id, newRating)
