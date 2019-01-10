@@ -48,6 +48,7 @@ func (serv *Endpoints) SubmitWinner(w http.ResponseWriter, r *http.Request) {
 	loserID := losers[0]
 
 	serv.recordVictory(winnerID, loserID)
+	serv.sendResponse(w, r, "ok")
 }
 
 func (serv *Endpoints) recordVictory(winnerID string, loserID string) {
