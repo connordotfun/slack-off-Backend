@@ -1,7 +1,7 @@
 package endpoints
 
 import (
-	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -65,7 +65,8 @@ func (serv *Endpoints) sendResponse(w http.ResponseWriter, r *http.Request, resp
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(response); err != nil {
+	_, err := fmt.Fprintln(w, response)
+	if err != nil {
 		panic(err)
 	}
 }
