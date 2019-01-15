@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
-	"slack-off-Backend/db"
-	"slack-off-Backend/endpoints"
+	"github.com/connordotfun/slack-off-Backend/db"
+	"github.com/connordotfun/slack-off-Backend/endpoints"
 
 	_ "github.com/lib/pq"
 )
