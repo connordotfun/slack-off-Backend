@@ -105,4 +105,15 @@ func (db *DB) UpdateRating(id string, newRating float64) {
 	if err != nil {
 		panic(err)
 	}
+
+	db.updateVoteCount(id)
+}
+
+// UpdateVoteCount updates the count of votes on the message
+func (db *DB) updateVoteCount(id string) {
+	command := `UPDATE votes SET votes = votes + 1 where id = $1;`
+	_, err := db.sqldb.Exec(command, id)
+	if err != nil {
+		panic(err)
+	}
 }
